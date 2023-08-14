@@ -2,7 +2,10 @@ import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 export const Layout = () => {
-  const pages = [];
+  const pages = [
+    { title: 'Home', src: '/' },
+    { title: 'Movies', src: '/movies' },
+  ];
   return (
     <div>
       <nav>
