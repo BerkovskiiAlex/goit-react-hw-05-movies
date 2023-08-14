@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Link,
   NavLink,
@@ -12,6 +12,8 @@ export const MovieDetails = () => {
   const [movieDetail, setMovieDetail] = useState({});
   const { id } = useParams();
   const location = useLocation();
+
+  const goBack = useRef(location.state?.from || '/');
 
   useEffect(() => {
     const fetchData = () => {
@@ -28,7 +30,7 @@ export const MovieDetails = () => {
   console.log(movieDetail);
   return (
     <>
-      <Link to={location.state?.from || '/'}>Go back</Link>
+      <Link to={goBack.current}>Go back</Link>
       <div>
         <img src="movieDetail.poster_path" alt="nema" />
         <br />
