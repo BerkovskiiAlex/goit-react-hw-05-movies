@@ -6,12 +6,11 @@ export const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get('query') ?? '';
-  const [submitted, setSubmitted] = useState(false);
+  const [queryStr, setQueryStr] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
-    setSearchParams(query ? { query } : {});
-    setSubmitted(true);
+    setSearchParams(queryStr ? { query: queryStr } : {});
   };
 
   const [searchMovies, setSearchMovies] = useState([]);
@@ -26,11 +25,8 @@ export const Movies = () => {
           console.log(error);
         });
     };
-
-    if (submitted) {
-      fetchData();
-    }
-  }, [query, submitted]);
+    fetchData();
+  }, [query]);
 
   console.log(searchMovies);
 
@@ -41,12 +37,12 @@ export const Movies = () => {
       <form onSubmit={onSubmit}>
         <input
           type="text"
-          value={query}
-          onChange={e => setSearchParams({ query: e.target.value })}
+          value={queryStr}
+          onChange={e => setQueryStr(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
-      {submitted && (
+      {
         <ul>
           {searchMovies.map(movie => (
             <li key={movie.id}>
@@ -56,7 +52,7 @@ export const Movies = () => {
             </li>
           ))}
         </ul>
-      )}
+      }
     </>
   );
 };

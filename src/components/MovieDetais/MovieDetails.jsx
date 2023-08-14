@@ -12,7 +12,7 @@ export const MovieDetails = () => {
   const [movieDetail, setMovieDetail] = useState({});
   const { id } = useParams();
   const location = useLocation();
-
+  const { genres = [] } = movieDetail;
   const goBack = useRef(location.state?.from || '/');
 
   useEffect(() => {
@@ -32,16 +32,35 @@ export const MovieDetails = () => {
     <>
       <Link to={goBack.current}>Go back</Link>
       <div>
-        <img src="movieDetail.poster_path" alt="nema" />
-        <br />
-        <span>{movieDetail.original_title}</span>
-        <br />
-        <span>{movieDetail.vote_average}</span>
-        <br />
-        <span>Overview</span>
-        <br />
-        <span>{movieDetail.overview}</span>
-        <br />
+        {movieDetail.poster_path && (
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movieDetail.poster_path}`}
+            alt={movieDetail.title}
+          />
+        )}
+        <div>
+          <ul>
+            <li>
+              <h1>{movieDetail.title}</h1>
+            </li>
+            <li>
+              <span>{`Vote Average = ${movieDetail.vote_average}`}</span>
+            </li>
+            <li>
+              <h2>Overview</h2>
+            </li>
+            <li>
+              <span>{movieDetail.overview}</span>
+            </li>
+            <li>
+              <h2>Genres</h2>
+            </li>
+          </ul>
+          <ul>
+            {genres &&
+              genres.map((genre, index) => <li key={index}>{genre.name}</li>)}
+          </ul>
+        </div>
       </div>
       <hr />
       <h2>Aditional Information</h2>
