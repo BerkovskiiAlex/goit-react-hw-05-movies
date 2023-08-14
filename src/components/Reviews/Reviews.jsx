@@ -18,7 +18,7 @@ export const Reviews = () => {
     };
     fetchData();
   }, [id]);
-  console.log(reviews);
+
   return (
     <>
       {reviews.length ? (
@@ -34,3 +34,5 @@ export const Reviews = () => {
     </>
   );
 };
+
+export default Reviews;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import {
   Link,
   NavLink,
@@ -7,8 +7,9 @@ import {
   useParams,
 } from 'react-router-dom';
 import { fetchDetails } from 'service/Api';
+import { Flex } from './MovieDetails.styled';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movieDetail, setMovieDetail] = useState({});
   const { id } = useParams();
   const location = useLocation();
@@ -27,11 +28,11 @@ export const MovieDetails = () => {
     };
     fetchData();
   }, [id]);
-  console.log(movieDetail);
+
   return (
     <>
       <Link to={goBack.current}>Go back</Link>
-      <div>
+      <Flex>
         {movieDetail.poster_path && (
           <img
             src={`https://image.tmdb.org/t/p/w500${movieDetail.poster_path}`}
@@ -61,7 +62,7 @@ export const MovieDetails = () => {
               genres.map((genre, index) => <li key={index}>{genre.name}</li>)}
           </ul>
         </div>
-      </div>
+      </Flex>
       <hr />
       <h2>Aditional Information</h2>
       <ul>
@@ -73,7 +74,11 @@ export const MovieDetails = () => {
         </li>
       </ul>
       <hr />
-      <Outlet />
+      <Suspense fallback={<h1>Loading about suspense</h1>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
+
+export default MovieDetails;

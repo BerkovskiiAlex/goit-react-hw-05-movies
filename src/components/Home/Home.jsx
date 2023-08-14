@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchGetTrending } from 'service/Api';
 
-export const Home = () => {
+const Home = () => {
   const [trendMovies, setTrendMovies] = useState([]);
 
   useEffect(() => {
@@ -19,8 +19,6 @@ export const Home = () => {
     fetchData();
   }, []);
 
-  console.log(trendMovies);
-
   return (
     <div>
       <h1>Trending today</h1>
@@ -34,3 +32,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

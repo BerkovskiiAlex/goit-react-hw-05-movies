@@ -18,7 +18,7 @@ export const Cast = () => {
     };
     fetchData();
   }, [id]);
-  console.log(cast);
+
   return (
     <>
       <ul>
@@ -42,3 +42,5 @@ export const Cast = () => {
     </>
   );
 };
+
+export default Cast;
